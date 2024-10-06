@@ -1,0 +1,20 @@
+version: "3"
+services:
+  db:
+    container_name: db-container
+    image: mysql:8.0.39
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: etraveli
+    ports:
+      - "3307:3306"
+
+  java-back:
+    container_name: api-container
+    image: api-image
+    build: ./
+    restart: on-failure
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
